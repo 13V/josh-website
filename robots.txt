@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jtr-garage.myshopify.com/sitemap.xml
