@@ -8,7 +8,6 @@
   <link rel="canonical" href="https://jtr-garage.myshopify.com/">
   <meta name="theme-color" content="#0a0a0b">
 
-  <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="JTR Garage">
   <meta property="og:title" content="JTR Garage — Cars & Culture. Adelaide-Built.">
@@ -19,7 +18,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Noto+Sans+JP:wght@500;700&display=swap" rel="stylesheet">
+  <!-- shared design system (cart drawer, toast, tokens) -->
   <link rel="stylesheet" href="assets/css/styles.css">
 
   <script type="application/ld+json">
@@ -37,340 +37,483 @@
     ]
   }
   </script>
+
+  <style>
+    html,body{margin:0;padding:0;background:#0a0a0b;}
+    ::selection{background:#ff2e2e;color:#0a0a0b;}
+    .jtr-root{ -webkit-font-smoothing:antialiased; }
+    @keyframes jtr-marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    @keyframes jtr-cue{0%{transform:translateY(0);opacity:.2}50%{transform:translateY(8px);opacity:1}100%{transform:translateY(0);opacity:.2}}
+    @keyframes jtr-grain{0%,100%{transform:translate(0,0)}10%{transform:translate(-4%,-4%)}30%{transform:translate(3%,-2%)}50%{transform:translate(-2%,4%)}70%{transform:translate(4%,2%)}90%{transform:translate(-3%,3%)}}
+    @keyframes jtr-spin{to{transform:rotate(360deg)}}
+    @keyframes jtr-streak{0%{transform:translateX(-130%);opacity:0}8%{opacity:.9}92%{opacity:.9}100%{transform:translateX(140%);opacity:0}}
+    @keyframes jtr-glow{0%,100%{opacity:.45;transform:scale(1)}50%{opacity:.85;transform:scale(1.06)}}
+    @keyframes jtr-rec{0%,100%{opacity:1}50%{opacity:.25}}
+    @keyframes jtr-sweep{0%{transform:translateX(-100%)}55%,100%{transform:translateX(101%)}}
+    @keyframes jtr-floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+    @keyframes jtr-bg{0%{background-position:0 0}100%{background-position:54px 54px}}
+    .jtr-reveal{opacity:0;transform:translateY(28px);transition:opacity 1s cubic-bezier(.16,1,.3,1),transform 1s cubic-bezier(.16,1,.3,1);}
+    .jtr-reveal.jtr-in{opacity:1;transform:none;}
+    .jtr-pcard .jtr-pb{opacity:0;transition:opacity .55s ease;}
+    .jtr-pcard:hover .jtr-pb{opacity:1;}
+    .jtr-pcard:hover .jtr-pa{opacity:0;}
+    .jtr-pa,.jtr-pb{transition:opacity .55s ease,transform .9s cubic-bezier(.16,1,.3,1);}
+    .jtr-pcard:hover .jtr-pa,.jtr-pcard:hover .jtr-pb{transform:scale(1.04);}
+    .jtr-grow{transition:transform .9s cubic-bezier(.16,1,.3,1),opacity .6s ease;}
+    .jtr-feat:hover .jtr-grow{transform:scale(1.05);}
+    .jtr-chip{transition:background .25s ease,color .25s ease,border-color .25s ease,transform .25s ease;}
+    .jtr-chip:hover{background:#ff2e2e;color:#0a0a0b;border-color:#ff2e2e;transform:translateY(-2px);}
+    .jtr-nav a{transition:color .2s ease;}
+    .jtr-nav a:hover{color:#fff;}
+    .jtr-mobnav a:hover{color:#fff;}
+    .jtr-btn-fill{transition:transform .25s ease,box-shadow .25s ease;}
+    .jtr-btn-fill:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(255,46,46,.35);}
+    .jtr-btn-ghost{transition:border-color .25s ease,color .25s ease,background .25s ease;}
+    .jtr-btn-ghost:hover{border-color:#fff;color:#0a0a0b;background:#fff;}
+    .jtr-link{transition:gap .25s ease,color .2s ease;}
+    .jtr-link:hover{gap:14px;}
+    .jtr-root a{text-decoration:none;color:inherit;}
+    /* neutralise shared base heading rules so the comp's inline type wins */
+    .jtr-root h1,.jtr-root h2,.jtr-root h3,.jtr-root h4{text-transform:none;letter-spacing:normal;line-height:1.1;margin:0;}
+    .jtr-mobnav{display:none;}
+
+    /* ---------- responsive ---------- */
+    @media (max-width: 980px){
+      .jtr-herogrid{grid-template-columns:1fr!important;gap:34px!important;}
+      .jtr-twoup{grid-template-columns:1fr!important;}
+      .jtr-vehgrid{grid-template-columns:1fr!important;}
+      .jtr-whygrid{grid-template-columns:1fr 1fr!important;}
+      .jtr-nlgrid{grid-template-columns:1fr!important;gap:26px!important;}
+      .jtr-footgrid{grid-template-columns:1fr 1fr!important;}
+      .jtr-pgrid{grid-template-columns:1fr 1fr!important;}
+    }
+    @media (max-width: 760px){
+      .jtr-navlinks{display:none!important;}
+      .jtr-mobnav{display:flex!important;}
+      .jtr-px{padding-left:20px!important;padding-right:20px!important;}
+      .jtr-floatchip{left:0!important;bottom:-16px!important;}
+      .jtr-ghost-gtr{font-size:48vw!important;}
+      .jtr-rec{display:none!important;}
+    }
+    @media (max-width: 480px){
+      .jtr-pgrid{grid-template-columns:1fr!important;}
+      .jtr-whygrid{grid-template-columns:1fr!important;}
+      .jtr-footgrid{grid-template-columns:1fr!important;}
+      .jtr-footbar{justify-content:flex-start!important;}
+    }
+  </style>
   <script src="assets/js/app.js" defer></script>
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
+<a class="skip-link" href="#drop">Skip to content</a>
 
-  <!-- Announcement -->
-  <div class="announce" aria-label="Store announcements">
-    <div class="announce__track" aria-hidden="true">
-      <span>Free shipping Australia-wide over $100&nbsp;&nbsp;&nbsp;&nbsp;Limited streetwear drops — once they're gone, they're gone&nbsp;&nbsp;&nbsp;&nbsp;Genuine JDM & AUDM, honestly listed&nbsp;&nbsp;&nbsp;&nbsp;Adelaide-built</span>
-      <span>Free shipping Australia-wide over $100&nbsp;&nbsp;&nbsp;&nbsp;Limited streetwear drops — once they're gone, they're gone&nbsp;&nbsp;&nbsp;&nbsp;Genuine JDM & AUDM, honestly listed&nbsp;&nbsp;&nbsp;&nbsp;Adelaide-built</span>
+<main class="jtr-root" id="maincontent" style="--accent:#ff2e2e; background:#0a0a0b; color:#f4f3f1; font-family:'Archivo',sans-serif; overflow-x:hidden; position:relative; min-height:100vh;">
+
+  <!-- film grain -->
+  <div aria-hidden="true" style="position:fixed; inset:-50%; z-index:9999; pointer-events:none; opacity:.05; mix-blend-mode:overlay; animation:jtr-grain 1.4s steps(4) infinite; background-image:url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22120%22><filter id=%22n%22><feTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%222%22/></filter><rect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/></svg>');"></div>
+
+  <!-- ============ TOP TICKER ============ -->
+  <div style="background:var(--accent); color:#0a0a0b; overflow:hidden; white-space:nowrap; border-bottom:1px solid #0a0a0b;">
+    <div style="display:inline-flex; gap:0; animation:jtr-marq 26s linear infinite; will-change:transform;">
+      <span style="display:inline-flex; gap:38px; padding:9px 19px; font-family:'Space Mono',monospace; font-size:12px; font-weight:700; letter-spacing:.14em; text-transform:uppercase;">
+        <span>✦ Free AU shipping over $100</span><span>✦ Limited drops — gone is gone</span><span>✦ Genuine JDM &amp; AUDM</span><span>✦ Adelaide-built · Est. 2026</span><span>✦ Honest listings, real history</span>
+      </span>
+      <span style="display:inline-flex; gap:38px; padding:9px 19px; font-family:'Space Mono',monospace; font-size:12px; font-weight:700; letter-spacing:.14em; text-transform:uppercase;">
+        <span>✦ Free AU shipping over $100</span><span>✦ Limited drops — gone is gone</span><span>✦ Genuine JDM &amp; AUDM</span><span>✦ Adelaide-built · Est. 2026</span><span>✦ Honest listings, real history</span>
+      </span>
     </div>
   </div>
 
-  <!-- Header -->
-  <header class="site-header">
-    <div class="container nav">
-      <button class="nav__toggle" aria-expanded="false" aria-controls="navMenu" aria-label="Open menu"><span></span></button>
-      <a class="brand" href="index.html" aria-label="JTR Garage home"><span class="dot" aria-hidden="true"></span>JTR Garage</a>
-      <nav class="nav__menu" id="navMenu" aria-label="Primary">
-        <ul class="nav__links">
-          <li><a href="index.html" aria-current="page">Home</a></li>
-          <li><a href="apparel.html">Apparel</a></li>
-          <li><a href="vehicles.html">Vehicles</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="contact.html">Contact</a></li>
-        </ul>
-      </nav>
-      <div class="nav__actions">
-        <a class="nav__icon" href="contact.html" aria-label="Search">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-        </a>
-        <button class="nav__icon" data-cart-open aria-label="Open bag">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-          <span class="cart-count" aria-hidden="true">0</span>
-        </button>
+  <!-- ============ NAV ============ -->
+  <nav class="jtr-nav jtr-px" style="position:sticky; top:0; z-index:900; display:flex; align-items:center; justify-content:space-between; padding:18px 40px; background:rgba(10,10,11,.72); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border-bottom:1px solid rgba(255,255,255,.08);">
+    <a href="index.html" style="display:flex; align-items:center; gap:11px;">
+      <span style="width:34px; height:34px; border:2px solid var(--accent); display:grid; place-items:center; font-family:'Archivo Black'; font-size:15px; color:var(--accent); transform:skewX(-6deg);">J</span>
+      <span style="font-family:'Archivo Black'; font-size:18px; letter-spacing:.02em; text-transform:uppercase;">JTR&nbsp;Garage</span>
+    </a>
+    <div class="jtr-navlinks" style="display:flex; align-items:center; gap:34px; font-family:'Space Mono',monospace; font-size:12.5px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:#a7a7af;">
+      <a href="apparel.html">Apparel</a>
+      <a href="vehicles.html">Vehicles</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <button type="button" data-cart-open aria-label="Open bag" style="display:flex; align-items:center; gap:9px; padding:9px 16px; border:1px solid rgba(255,255,255,.18); background:none; color:#f4f3f1; font-family:'Space Mono',monospace; font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; cursor:pointer;">
+      Bag <span class="cart-count" style="position:static; transform:none; display:grid; place-items:center; min-width:20px; height:20px; padding:0 5px; background:var(--accent); color:#0a0a0b; border-radius:2px; font-size:11px;">0</span>
+    </button>
+  </nav>
+  <!-- mobile sub-nav -->
+  <div class="jtr-mobnav" style="gap:22px; padding:12px 20px; background:rgba(10,10,11,.92); border-bottom:1px solid rgba(255,255,255,.08); font-family:'Space Mono',monospace; font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:#a7a7af; overflow-x:auto; white-space:nowrap; -webkit-overflow-scrolling:touch;">
+    <a href="apparel.html">Apparel</a><a href="vehicles.html">Vehicles</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+  </div>
+
+  <!-- ============ HERO ============ -->
+  <header id="top" style="position:relative; padding:0; overflow:hidden;">
+    <div aria-hidden="true" style="position:absolute; inset:0; background:radial-gradient(120% 80% at 78% 10%, rgba(255,46,46,.16), transparent 55%), linear-gradient(180deg,#0a0a0b,#0c0c0e);"></div>
+    <div aria-hidden="true" style="position:absolute; inset:0; opacity:.5; background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px); background-size:54px 54px; animation:jtr-bg 6s linear infinite; -webkit-mask-image:linear-gradient(180deg,transparent,#000 30%,#000 70%,transparent); mask-image:linear-gradient(180deg,transparent,#000 30%,#000 70%,transparent);"></div>
+    <div aria-hidden="true" style="position:absolute; top:-14%; right:6%; width:480px; height:480px; border-radius:50%; background:radial-gradient(circle, rgba(255,46,46,.34), transparent 62%); filter:blur(40px); animation:jtr-glow 4.5s ease-in-out infinite; pointer-events:none;"></div>
+    <div aria-hidden="true" style="position:absolute; inset:0; overflow:hidden; pointer-events:none;">
+      <span style="position:absolute; top:22%; left:0; width:32%; height:2px; background:linear-gradient(90deg,transparent,var(--accent)); animation:jtr-streak 3.6s linear infinite;"></span>
+      <span style="position:absolute; top:46%; left:0; width:22%; height:1px; background:linear-gradient(90deg,transparent,rgba(255,255,255,.5)); animation:jtr-streak 2.8s linear .9s infinite;"></span>
+      <span style="position:absolute; top:64%; left:0; width:40%; height:2px; background:linear-gradient(90deg,transparent,var(--accent)); animation:jtr-streak 4.4s linear 1.6s infinite;"></span>
+      <span style="position:absolute; top:82%; left:0; width:18%; height:1px; background:linear-gradient(90deg,transparent,rgba(255,255,255,.4)); animation:jtr-streak 3.2s linear .4s infinite;"></span>
+    </div>
+    <div class="jtr-ghost-gtr" aria-hidden="true" style="position:absolute; right:-2vw; top:6%; font-family:'Archivo Black'; font-size:30vw; line-height:.8; color:rgba(255,255,255,.028); letter-spacing:-.04em; user-select:none; white-space:nowrap;">GTR</div>
+    <div aria-hidden="true" style="position:absolute; left:38px; bottom:4%; font-family:'Noto Sans JP'; font-weight:700; font-size:8vw; color:rgba(255,46,46,.06); letter-spacing:.1em; user-select:none;">走り屋</div>
+
+    <div class="jtr-rec" style="position:absolute; top:26px; right:40px; z-index:3; display:flex; align-items:center; gap:9px; font-family:'Space Mono',monospace; font-size:11px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:#cfcfd6;">
+      <span style="width:9px; height:9px; border-radius:50%; background:var(--accent); animation:jtr-rec 1.3s steps(1) infinite;"></span> REC · 00:26
+    </div>
+
+    <div class="jtr-herogrid jtr-px" style="position:relative; z-index:2; max-width:1320px; margin:0 auto; padding:80px 40px 70px; display:grid; grid-template-columns:1.15fr .85fr; gap:50px; align-items:center;">
+      <div>
+        <div style="display:flex; align-items:center; gap:14px; font-family:'Space Mono',monospace; font-size:12.5px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:#9a9aa2; margin-bottom:26px;">
+          <span style="width:30px; height:1px; background:var(--accent);"></span>
+          Adelaide · SA <span style="color:var(--accent);">//</span> JDM × AUDM <span style="color:var(--accent);">//</span> Est. 2026
+        </div>
+        <h1 style="margin:0; font-family:'Archivo Black'; font-size:clamp(56px,8.6vw,128px); line-height:.86; letter-spacing:-.03em; text-transform:uppercase;">
+          Built<br>For the<br><span style="color:var(--accent); position:relative;">Scene.<span style="position:absolute; left:0; bottom:.04em; width:100%; height:8px; overflow:hidden; opacity:.9;"><span style="display:block; width:100%; height:100%; background:var(--accent); animation:jtr-sweep 2.6s cubic-bezier(.7,0,.3,1) infinite;"></span></span></span>
+        </h1>
+        <p style="max-width:430px; margin:30px 0 0; font-size:17px; line-height:1.6; color:#b6b6bd;">
+          Adelaide's home for genuine JDM &amp; AUDM legends — Skylines, GT-Rs, HSVs — and the streetwear to match. Built by enthusiasts, for enthusiasts. No fluff, just the good stuff.
+        </p>
+        <div style="display:flex; flex-wrap:wrap; gap:14px; margin-top:36px;">
+          <a href="#drop" class="jtr-btn-fill" style="display:inline-flex; align-items:center; gap:10px; padding:16px 26px; background:var(--accent); color:#0a0a0b; font-family:'Space Mono',monospace; font-weight:700; font-size:13px; letter-spacing:.08em; text-transform:uppercase;">Shop the Drop →</a>
+          <a href="vehicles.html" class="jtr-btn-ghost" style="display:inline-flex; align-items:center; gap:10px; padding:16px 26px; border:1px solid rgba(255,255,255,.22); color:#f4f3f1; font-family:'Space Mono',monospace; font-weight:700; font-size:13px; letter-spacing:.08em; text-transform:uppercase;">Browse Vehicles</a>
+        </div>
       </div>
+
+      <!-- featured vehicle visual -->
+      <div style="position:relative;">
+        <a href="vehicle-1973-ta22-celica.html" class="jtr-feat" style="display:block; position:relative; aspect-ratio:4/5; border:1px solid rgba(255,255,255,.1); background:#101013; overflow:hidden;">
+          <img class="jtr-grow" src="https://cdn.shopify.com/s/files/1/0996/3821/5027/files/IMG_1410.heic?v=1778759772&width=1000" alt="1973 TA22 Toyota Celica — featured vehicle" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
+          <div style="position:absolute; inset:0; background:linear-gradient(180deg,transparent 45%,rgba(10,10,11,.5));"></div>
+          <span style="position:absolute; top:14px; left:14px; padding:5px 9px; background:var(--accent); color:#0a0a0b; font-family:'Space Mono',monospace; font-size:10px; font-weight:700; letter-spacing:.14em;">FEATURED</span>
+        </a>
+        <div class="jtr-floatchip" style="position:absolute; -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); bottom:-22px; left:-22px; background:rgba(20,20,23,.92); border:1px solid rgba(255,255,255,.12); padding:16px 20px; display:flex; align-items:center; gap:16px; box-shadow:0 18px 50px rgba(0,0,0,.5); animation:jtr-floaty 5s ease-in-out infinite;">
+          <div style="width:46px; height:46px; border:2px solid var(--accent); border-radius:50%; display:grid; place-items:center; animation:jtr-spin 9s linear infinite;">
+            <span style="font-family:'Archivo Black'; font-size:13px; color:var(--accent);">26</span>
+          </div>
+          <div>
+            <div style="font-family:'Archivo Black'; font-size:18px; letter-spacing:.02em;">RB26</div>
+            <div style="font-family:'Space Mono',monospace; font-size:11px; color:#8a8a92; letter-spacing:.08em;">Twin-turbo inline-six</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="position:relative; z-index:2; display:flex; align-items:center; justify-content:center; gap:10px; padding-bottom:26px; font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.22em; text-transform:uppercase; color:#6b6b73;">
+      <span style="animation:jtr-cue 1.8s ease-in-out infinite;">▼</span> Scroll
     </div>
   </header>
 
-  <main id="main">
-    <!-- HERO -->
-    <section class="hero">
-      <div class="hero__bg" aria-hidden="true"></div>
-      <div class="hero__grid" aria-hidden="true"></div>
-      <div class="hero__noise" aria-hidden="true"></div>
-      <div class="container hero__inner">
-        <p class="hero__chassis"><span>Adelaide · SA</span><span class="accent">//</span><span>JDM × AUDM</span><span class="accent">//</span><span>Est. 2026</span></p>
-        <h1 class="h-xl">
-          <span class="line">Built</span>
-          <span class="line outline">For the</span>
-          <span class="line">Scene.</span>
-        </h1>
-        <p class="hero__sub lede">Adelaide's home for genuine JDM &amp; AUDM legends — Skylines, GT-Rs, HSVs — and the streetwear to match. Built by enthusiasts, for enthusiasts. No fluff, just the good stuff.</p>
-        <div class="hero__cta">
-          <a class="btn btn--lg" href="apparel.html">Shop the Drop <span class="arrow" aria-hidden="true">→</span></a>
-          <a class="btn btn--ghost btn--lg" href="vehicles.html">Browse Vehicles</a>
-        </div>
+  <!-- ============ TWO-UP FEATURE ============ -->
+  <section id="streetwear" class="jtr-twoup jtr-px" style="max-width:1320px; margin:0 auto; padding:30px 40px 10px; display:grid; grid-template-columns:1fr 1fr; gap:24px;">
+    <a href="apparel.html" class="jtr-feat jtr-reveal" style="position:relative; overflow:hidden; aspect-ratio:1/1; border:1px solid rgba(255,255,255,.08); background:#111114;">
+      <img class="jtr-grow" src="https://cdn.shopify.com/s/files/1/0996/3821/5027/files/6d2e82fd798141e6ab0d344228df6af6.png?v=1782035944&width=1100" alt="JTR Garage GT-R Bloodline tee" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
+      <div style="position:absolute; inset:0; background:linear-gradient(180deg,transparent 30%,rgba(10,10,11,.92));"></div>
+      <span style="position:absolute; top:18px; left:18px; font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.18em; color:#cfcfd6;">01 / Streetwear</span>
+      <div style="position:absolute; left:26px; right:26px; bottom:24px;">
+        <h3 style="margin:0 0 8px; font-family:'Archivo Black'; font-size:30px; text-transform:uppercase; letter-spacing:-.01em;">Streetwear</h3>
+        <p style="margin:0 0 14px; max-width:380px; font-size:14.5px; line-height:1.55; color:#bfbfc6;">Japanese-inspired gear designed by people who actually drive. Heavyweight cotton, limited drops, designs that earn a nod at the meet.</p>
+        <span class="jtr-link" style="display:inline-flex; align-items:center; gap:9px; font-family:'Space Mono',monospace; font-size:12.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--accent);">Shop apparel →</span>
       </div>
-      <div class="hero__meta" aria-hidden="true">
-        <div class="num">RB26</div>
-        <p class="mono text-ash">Twin-turbo<br>inline-six</p>
-      </div>
-      <span class="scroll-cue" aria-hidden="true">Scroll</span>
-    </section>
+    </a>
 
-    <!-- WORLDS -->
-    <section aria-label="Shop by world">
-      <div class="worlds">
-        <article class="world reveal">
-          <span class="world__num">01 / Streetwear</span>
-          <div class="world__media"><img src="https://cdn.shopify.com/s/files/1/0996/3821/5027/files/6d2e82fd798141e6ab0d344228df6af6.png?v=1782035944&width=1000" alt="Model wearing the JTR Garage GT-R Bloodline tee" loading="lazy" width="1000" height="1250"></div>
-          <div class="world__body">
-            <h3>Streetwear</h3>
-            <p>Japanese-inspired gear designed by people who actually drive. Heavyweight cotton, limited drops, designs that earn a nod at the meet.</p>
-            <a class="link-arrow" href="apparel.html">Shop apparel <span aria-hidden="true">→</span></a>
-          </div>
-        </article>
-        <article class="world reveal">
-          <span class="world__num">02 / Garage</span>
-          <div class="world__media"><img src="https://cdn.shopify.com/s/files/1/0996/3821/5027/files/IMG_1410.heic?v=1778759772&width=1000" alt="1973 Toyota Celica in JTR Garage stock" loading="lazy" width="1000" height="1333"></div>
-          <div class="world__body">
-            <h3>The Garage</h3>
-            <p>Hand-picked JDM &amp; AUDM metal. Every car inspected, honestly listed, and ready to be enjoyed — not just owned.</p>
-            <a class="link-arrow" href="vehicles.html">Browse vehicles <span aria-hidden="true">→</span></a>
-          </div>
-        </article>
+    <a href="vehicles.html" class="jtr-feat jtr-reveal" style="position:relative; overflow:hidden; aspect-ratio:1/1; border:1px solid rgba(255,255,255,.08); background:#111114;">
+      <img class="jtr-grow" src="https://cdn.shopify.com/s/files/1/0996/3821/5027/files/IMG_1416.heic?v=1778759772&width=1100" alt="1973 Toyota Celica in the JTR Garage, rear three-quarter" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
+      <div style="position:absolute; inset:0; background:linear-gradient(180deg,transparent 30%,rgba(10,10,11,.92));"></div>
+      <span style="position:absolute; top:18px; left:18px; font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.18em; color:#cfcfd6;">02 / Garage</span>
+      <div style="position:absolute; left:26px; right:26px; bottom:24px;">
+        <h3 style="margin:0 0 8px; font-family:'Archivo Black'; font-size:30px; text-transform:uppercase; letter-spacing:-.01em;">The Garage</h3>
+        <p style="margin:0 0 14px; max-width:380px; font-size:14.5px; line-height:1.55; color:#bfbfc6;">Hand-picked JDM &amp; AUDM metal. Every car inspected, honestly listed, and ready to be enjoyed — not just owned.</p>
+        <span class="jtr-link" style="display:inline-flex; align-items:center; gap:9px; font-family:'Space Mono',monospace; font-size:12.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--accent);">Browse vehicles →</span>
       </div>
-    </section>
+    </a>
+  </section>
 
-    <!-- BRAND STRIP -->
-    <div class="strip" aria-hidden="true">
-      <div class="strip__track">
-        <span><em>Cars</em> &amp; Culture</span><span>Built <em>Not</em> Bought</span><span>Touge to <em>Streets</em></span><span><em>Godzilla</em> Lives</span>
-        <span><em>Cars</em> &amp; Culture</span><span>Built <em>Not</em> Bought</span><span>Touge to <em>Streets</em></span><span><em>Godzilla</em> Lives</span>
+  <!-- ============ KINETIC MARQUEE ============ -->
+  <section aria-hidden="true" style="padding:60px 0; margin-top:40px; overflow:hidden; position:relative; background:linear-gradient(180deg,#0a0a0b,#0e0e11,#0a0a0b);">
+    <div style="position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,var(--accent),transparent);"></div>
+    <div style="position:absolute; bottom:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,var(--accent),transparent);"></div>
+    <div style="transform:rotate(-2.2deg) scale(1.05); width:100%;">
+    <div style="display:inline-flex; white-space:nowrap; animation:jtr-marq 34s linear infinite; will-change:transform;">
+      <span style="display:inline-flex; align-items:center; gap:0; font-family:'Archivo Black'; font-size:clamp(40px,6vw,86px); text-transform:uppercase; letter-spacing:-.02em;">
+        <span style="padding:0 28px;">Cars &amp; Culture</span><span style="color:var(--accent); padding:0 28px;">Built Not Bought</span><span style="-webkit-text-stroke:1.4px rgba(255,255,255,.4); color:transparent; padding:0 28px;">Touge to Streets</span><span style="padding:0 28px;">Godzilla Lives</span>
+      </span>
+      <span style="display:inline-flex; align-items:center; gap:0; font-family:'Archivo Black'; font-size:clamp(40px,6vw,86px); text-transform:uppercase; letter-spacing:-.02em;">
+        <span style="padding:0 28px;">Cars &amp; Culture</span><span style="color:var(--accent); padding:0 28px;">Built Not Bought</span><span style="-webkit-text-stroke:1.4px rgba(255,255,255,.4); color:transparent; padding:0 28px;">Touge to Streets</span><span style="padding:0 28px;">Godzilla Lives</span>
+      </span>
+    </div>
+    </div>
+  </section>
+
+  <!-- ============ PRODUCT GRID ============ -->
+  <section id="drop" class="jtr-px" style="max-width:1320px; margin:0 auto; padding:80px 40px 40px;">
+    <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:24px; margin-bottom:40px; flex-wrap:wrap;">
+      <div>
+        <div style="font-family:'Space Mono',monospace; font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:var(--accent); margin-bottom:14px;">The Latest Drop</div>
+        <h2 style="margin:0; font-family:'Archivo Black'; font-size:clamp(38px,5.5vw,72px); line-height:.9; text-transform:uppercase; letter-spacing:-.02em;">Fresh Off the Line</h2>
       </div>
+      <a href="apparel.html" class="jtr-link" style="display:inline-flex; align-items:center; gap:9px; padding-bottom:6px; border-bottom:1px solid var(--accent); font-family:'Space Mono',monospace; font-size:12.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#f4f3f1;">View all apparel →</a>
     </div>
 
-    <!-- LATEST DROP -->
-    <section class="section" aria-labelledby="drop-h">
-      <div class="container">
-        <div class="section-head">
-          <p class="eyebrow">The Latest Drop</p>
-          <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:1rem;flex-wrap:wrap">
-            <h2 class="h-lg" id="drop-h">Fresh Off<br>the Line</h2>
-            <a class="link-arrow" href="apparel.html">View all apparel <span aria-hidden="true">→</span></a>
-          </div>
-        </div>
-        <div class="grid grid--products">
-          <!-- GT-R Bloodline Tee -->
-          <article class="card reveal">
-            <div class="card__media">
-              <div class="card__tags"><span class="badge badge--new">New</span></div>
-              <img class="main" src="https://cdn.shopify.com/s/files/1/0996/3821/5027/files/6d2e82fd798141e6ab0d344228df6af6.png?v=1782035944&width=600" alt="JTR Garage GT-R Bloodline tee, back print" loading="lazy" width="600" height="750">
-              <img class="alt" src="https://cdn.shopify.com/s/files/1/0996/3821/5027/files/3e28e5563ec143d69ae0faca0f91ce28.png?v=1782035943&width=600" alt="" loading="lazy" width="600" height="750">
-              <div class="card__quick"><a class="btn btn--block btn--light" href="product-gt-r-bloodline-tee.html">View — $70</a></div>
-            </div>
-            <div class="card__body">
-              <span class="card__type">Tee · 260gsm</span>
-              <a class="card__link" href="product-gt-r-bloodline-tee.html"><h3 class="card__title">GT-R Bloodline Tee</h3></a>
-              <span class="card__price">$70.00</span>
-            </div>
-          </article>
-          <!-- Silvia Legacy Tee -->
-          <article class="card reveal">
-            <div class="card__media">
-              <div class="card__tags"><span class="badge badge--new">New</span></div>
-              <img class="main" src="https://cdn.shopify.com/s/files/1/0996/3821/5027/files/0b4394c1098d4ad883987fc6e16c37b6.png?v=1782036023&width=600" alt="JTR Garage Silvia Legacy tee, back print" loading="lazy" width="600" height="750">
-              <img class="alt" src="https://cdn.shopify.com/s/files/1/0996/3821/5027/files/18c132f25ce74265a1ed1c13c57f512d.png?v=1782036022&width=600" alt="" loading="lazy" width="600" height="750">
-              <div class="card__quick"><a class="btn btn--block btn--light" href="product-silvia-legacy-tee.html">View — $70</a></div>
-            </div>
-            <div class="card__body">
-              <span class="card__type">Tee · 260gsm</span>
-              <a class="card__link" href="product-silvia-legacy-tee.html"><h3 class="card__title">Silvia Legacy Tee</h3></a>
-              <span class="card__price">$70.00</span>
-            </div>
-          </article>
-          <!-- 86 Legacy Tee -->
-          <article class="card reveal">
-            <div class="card__media">
-              <div class="card__tags"><span class="badge badge--new">New</span></div>
-              <img class="main" src="https://cdn.shopify.com/s/files/1/0996/3821/5027/files/5de218556f364bc88f3ea257500eb678.png?v=1782038824&width=600" alt="JTR Garage 86 Legacy tee, back print" loading="lazy" width="600" height="750">
-              <img class="alt" src="https://cdn.shopify.com/s/files/1/0996/3821/5027/files/0eedc8e55056465482ac3e46054954a8.png?v=1782038824&width=600" alt="" loading="lazy" width="600" height="750">
-              <div class="card__quick"><a class="btn btn--block btn--light" href="product-86-legacy-tee.html">View — $70</a></div>
-            </div>
-            <div class="card__body">
-              <span class="card__type">Tee · 260gsm</span>
-              <a class="card__link" href="product-86-legacy-tee.html"><h3 class="card__title">86 Legacy Tee</h3></a>
-              <span class="card__price">$70.00</span>
-            </div>
-          </article>
-          <!-- Need Money Hoodie -->
-          <article class="card reveal">
-            <div class="card__media">
-              <div class="card__tags"><span class="badge badge--new">New</span></div>
-              <img class="main" src="https://cdn.shopify.com/s/files/1/0996/3821/5027/files/aecdde7987064b0fa595f84866cf0510.png?v=1782098168&width=600" alt="JTR Garage Need Money For GT-R hoodie, back print" loading="lazy" width="600" height="750">
-              <img class="alt" src="https://cdn.shopify.com/s/files/1/0996/3821/5027/files/e1a0af1949a040fe84cc555e1acfe4ed.png?v=1782098168&width=600" alt="" loading="lazy" width="600" height="750">
-              <div class="card__quick"><a class="btn btn--block btn--light" href="product-need-money-hoodie.html">View — $110</a></div>
-            </div>
-            <div class="card__body">
-              <span class="card__type">Hoodie · 380gsm</span>
-              <a class="card__link" href="product-need-money-hoodie.html"><h3 class="card__title">Need Money For GT-R Hoodie</h3></a>
-              <span class="card__price">$110.00</span>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
+    <div class="jtr-pgrid" style="display:grid; grid-template-columns:repeat(4,1fr); gap:20px;">
 
-    <!-- SHOP BY CHASSIS -->
-    <section class="section section--tight" aria-labelledby="chassis-h">
-      <div class="container">
-        <div class="section-head">
-          <p class="eyebrow">Shop by Chassis</p>
-          <h2 class="h-md" id="chassis-h">Know your code</h2>
+      <a href="product-gt-r-bloodline-tee.html" class="jtr-pcard jtr-reveal" style="display:block; border:1px solid rgba(255,255,255,.08); background:#101013;">
+        <div style="position:relative; aspect-ratio:1/1; overflow:hidden; background:#15151a;">
+          <img class="jtr-pa" src="https://cdn.shopify.com/s/files/1/0996/3821/5027/files/6d2e82fd798141e6ab0d344228df6af6.png?v=1782035944&width=700" alt="GT-R Bloodline tee" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
+          <img class="jtr-pb" src="https://cdn.shopify.com/s/files/1/0996/3821/5027/files/3e28e5563ec143d69ae0faca0f91ce28.png?v=1782035943&width=700" alt="GT-R Bloodline tee back" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
+          <span style="position:absolute; top:12px; left:12px; padding:4px 9px; background:var(--accent); color:#0a0a0b; font-family:'Space Mono',monospace; font-size:10px; font-weight:700; letter-spacing:.12em;">NEW</span>
         </div>
-        <nav class="chassis" aria-label="Shop by chassis code">
-          <a href="apparel.html?chassis=r32">R32</a>
-          <a href="apparel.html?chassis=r33">R33</a>
-          <a href="apparel.html?chassis=r34">R34</a>
-          <a href="apparel.html?chassis=s13">S13 / S14 / S15</a>
-          <a href="apparel.html?chassis=86">AE86</a>
-          <a href="vehicles.html?chassis=hsv">HSV / AUDM</a>
-          <a href="vehicles.html?chassis=ta22">TA22</a>
-        </nav>
-      </div>
-    </section>
+        <div style="padding:16px 16px 18px;">
+          <div style="font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.1em; color:#8a8a92; text-transform:uppercase;">Tee · 260gsm</div>
+          <h3 style="margin:7px 0 12px; font-family:'Archivo',sans-serif; font-weight:700; font-size:16.5px;">GT-R Bloodline Tee</h3>
+          <div style="display:flex; align-items:center; justify-content:space-between;">
+            <span style="font-family:'Archivo Black'; font-size:17px;">$70</span>
+            <span style="font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.08em; color:var(--accent);">VIEW →</span>
+          </div>
+        </div>
+      </a>
 
-    <!-- VEHICLE FEATURE -->
-    <section class="section" aria-labelledby="veh-h">
-      <div class="container">
-        <div class="feature">
-          <div class="feature__media reveal">
-            <img src="https://cdn.shopify.com/s/files/1/0996/3821/5027/files/IMG_1410.heic?v=1778759772&width=1100" alt="1973 TA22 Toyota Celica LT, front three-quarter" loading="lazy" width="1100" height="1466">
-            <span class="badge badge--sold tag-mono">Sold</span>
-          </div>
-          <div class="feature__body reveal">
-            <p class="eyebrow">In the Garage</p>
-            <h2 class="h-md" id="veh-h">1973 TA22<br>Toyota Celica LT</h2>
-            <div class="stack">
-              <p class="lede">A genuine slice of the golden era. Full service history dating back to its build date, runs and drives beautifully for 50-plus years old, and presents better than most. Honest listings, real history, no surprises.</p>
-            </div>
-            <div class="trust-row">
-              <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Genuine history</div>
-              <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Inspection welcome</div>
-              <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Adelaide, SA</div>
-            </div>
-            <div class="hero__cta" style="margin-top:2rem">
-              <a class="btn" href="vehicle-1973-ta22-celica.html">View this car</a>
-              <a class="btn btn--ghost" href="vehicles.html">All vehicles</a>
-            </div>
+      <a href="product-silvia-legacy-tee.html" class="jtr-pcard jtr-reveal" style="display:block; border:1px solid rgba(255,255,255,.08); background:#101013;">
+        <div style="position:relative; aspect-ratio:1/1; overflow:hidden; background:#15151a;">
+          <img class="jtr-pa" src="https://cdn.shopify.com/s/files/1/0996/3821/5027/files/0b4394c1098d4ad883987fc6e16c37b6.png?v=1782036023&width=700" alt="Silvia Legacy tee" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
+          <img class="jtr-pb" src="https://cdn.shopify.com/s/files/1/0996/3821/5027/files/18c132f25ce74265a1ed1c13c57f512d.png?v=1782036022&width=700" alt="Silvia Legacy tee back" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
+          <span style="position:absolute; top:12px; left:12px; padding:4px 9px; background:var(--accent); color:#0a0a0b; font-family:'Space Mono',monospace; font-size:10px; font-weight:700; letter-spacing:.12em;">NEW</span>
+        </div>
+        <div style="padding:16px 16px 18px;">
+          <div style="font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.1em; color:#8a8a92; text-transform:uppercase;">Tee · 260gsm</div>
+          <h3 style="margin:7px 0 12px; font-family:'Archivo',sans-serif; font-weight:700; font-size:16.5px;">Silvia Legacy Tee</h3>
+          <div style="display:flex; align-items:center; justify-content:space-between;">
+            <span style="font-family:'Archivo Black'; font-size:17px;">$70</span>
+            <span style="font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.08em; color:var(--accent);">VIEW →</span>
           </div>
         </div>
-      </div>
-    </section>
+      </a>
 
-    <!-- VALUE PROPS -->
-    <section class="section" aria-labelledby="why-h">
-      <div class="container">
-        <div class="section-head center">
-          <p class="eyebrow center">Why JTR</p>
-          <h2 class="h-lg" id="why-h">Enthusiast to Enthusiast</h2>
+      <a href="product-86-legacy-tee.html" class="jtr-pcard jtr-reveal" style="display:block; border:1px solid rgba(255,255,255,.08); background:#101013;">
+        <div style="position:relative; aspect-ratio:1/1; overflow:hidden; background:#15151a;">
+          <img class="jtr-pa" src="https://cdn.shopify.com/s/files/1/0996/3821/5027/files/5de218556f364bc88f3ea257500eb678.png?v=1782038824&width=700" alt="86 Legacy tee" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
+          <img class="jtr-pb" src="https://cdn.shopify.com/s/files/1/0996/3821/5027/files/0eedc8e55056465482ac3e46054954a8.png?v=1782038824&width=700" alt="86 Legacy tee back" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
+          <span style="position:absolute; top:12px; left:12px; padding:4px 9px; background:var(--accent); color:#0a0a0b; font-family:'Space Mono',monospace; font-size:10px; font-weight:700; letter-spacing:.12em;">NEW</span>
         </div>
-        <div class="props">
-          <div class="prop reveal">
-            <svg class="prop__ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 17h14l-1.5-5.5a2 2 0 0 0-1.9-1.5H8.4a2 2 0 0 0-1.9 1.5L5 17z"/><circle cx="7.5" cy="17.5" r="1.5"/><circle cx="16.5" cy="17.5" r="1.5"/><path d="M9 10V7h6v3"/></svg>
-            <h3>Cars We'd Keep Ourselves</h3>
-            <p>Hand-picked JDM &amp; AUDM metal — Skylines, GT-Rs, HSVs and more. Every car inspected and honestly listed.</p>
-          </div>
-          <div class="prop reveal">
-            <svg class="prop__ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2 4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6z"/><path d="m9 12 2 2 4-4"/></svg>
-            <h3>Honest From the First Photo</h3>
-            <p>Full history, real mod sheets and clear listings. What you see online is what you get in the flesh.</p>
-          </div>
-          <div class="prop reveal">
-            <svg class="prop__ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.4 14.5 16 10 4 22"/><path d="m14 6 3-3 4 4-3 3"/><path d="m10 10 4 4"/></svg>
-            <h3>Gear Built for the Scene</h3>
-            <p>Premium, heavyweight streetwear in limited drops. Designs that earn a nod at the meet — not an eye-roll.</p>
-          </div>
-          <div class="prop reveal">
-            <svg class="prop__ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 10c0 6-9 12-9 12S3 16 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            <h3>Part of the Adelaide Scene</h3>
-            <p>Local, enthusiast-run, and here for the long haul — at the track, at the meets, and in your DMs.</p>
+        <div style="padding:16px 16px 18px;">
+          <div style="font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.1em; color:#8a8a92; text-transform:uppercase;">Tee · 260gsm</div>
+          <h3 style="margin:7px 0 12px; font-family:'Archivo',sans-serif; font-weight:700; font-size:16.5px;">86 Legacy Tee</h3>
+          <div style="display:flex; align-items:center; justify-content:space-between;">
+            <span style="font-family:'Archivo Black'; font-size:17px;">$70</span>
+            <span style="font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.08em; color:var(--accent);">VIEW →</span>
           </div>
         </div>
-      </div>
-    </section>
+      </a>
 
-    <!-- STORY -->
-    <section class="section section--tight" aria-labelledby="story-h">
-      <div class="container story" style="text-align:center">
-        <p class="eyebrow center" style="justify-content:center">Our Story</p>
-        <h2 class="h-md" id="story-h" style="margin-top:1rem">Driven by Passion.<br>Defined by the Golden Era.</h2>
-        <p class="pull" style="border:0;padding:0;text-align:center;margin-top:2rem">"We're not a faceless dealer flogging stock — every car is one we'd put our own name to."</p>
-        <a class="link-arrow" href="about.html" style="justify-content:center">Read our story <span aria-hidden="true">→</span></a>
-      </div>
-    </section>
-
-    <!-- NEWSLETTER -->
-    <section class="section" aria-labelledby="nl-h">
-      <div class="container">
-        <div class="newsletter reveal">
-          <p class="eyebrow center" style="justify-content:center">Join the Crew</p>
-          <h2 class="h-md" id="nl-h" style="margin-top:1rem">Get the Drop<br>Before Anyone Else</h2>
-          <p class="lede" style="margin:1rem auto 0">New arrivals, fresh stock and limited streetwear drops — straight to your inbox. No spam, just cars and culture worth your time.</p>
-          <form class="newsletter__form" data-demo data-success="You're on the list — welcome to the crew.">
-            <label class="visually-hidden" for="nl-email">Email address</label>
-            <input class="field" id="nl-email" type="email" name="email" placeholder="Your email" required autocomplete="email">
-            <button class="btn" type="submit">Join</button>
-          </form>
-          <small>By joining you agree to receive marketing emails. Unsubscribe anytime.</small>
+      <a href="product-need-money-hoodie.html" class="jtr-pcard jtr-reveal" style="display:block; border:1px solid rgba(255,255,255,.08); background:#101013;">
+        <div style="position:relative; aspect-ratio:1/1; overflow:hidden; background:#15151a;">
+          <img class="jtr-pa" src="https://cdn.shopify.com/s/files/1/0996/3821/5027/files/aecdde7987064b0fa595f84866cf0510.png?v=1782098168&width=700" alt="Need Money For GT-R hoodie" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
+          <img class="jtr-pb" src="https://cdn.shopify.com/s/files/1/0996/3821/5027/files/e1a0af1949a040fe84cc555e1acfe4ed.png?v=1782098168&width=700" alt="Need Money For GT-R hoodie back" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
+          <span style="position:absolute; top:12px; left:12px; padding:4px 9px; background:var(--accent); color:#0a0a0b; font-family:'Space Mono',monospace; font-size:10px; font-weight:700; letter-spacing:.12em;">NEW</span>
         </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- FOOTER -->
-  <footer class="site-footer">
-    <div class="container">
-      <div class="footer__grid">
-        <div class="footer__brand">
-          <a class="brand" href="index.html"><span class="dot" aria-hidden="true"></span>JTR Garage</a>
-          <p>Adelaide's home for genuine JDM &amp; AUDM cars and Japanese-inspired streetwear. Cars and culture, straight out of South Australia.</p>
-          <div class="socials">
-            <a href="https://www.instagram.com/jtrgarage" aria-label="Instagram" rel="noopener" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
-            <a href="https://www.tiktok.com/@jtrgarage" aria-label="TikTok" rel="noopener" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 3c.3 2.1 1.5 3.6 3.6 3.9v2.6c-1.3.1-2.5-.3-3.6-1v6.1c0 3.3-2.4 5.6-5.5 5.6S5 18 5 15.2c0-2.8 2.3-4.8 5-4.6v2.7c-.4-.1-.9-.2-1.3-.1-1.1.2-1.9 1.1-1.8 2.3.1 1.1 1 1.9 2.1 1.9 1.3 0 2.2-1 2.2-2.5V3z"/></svg></a>
-            <a href="https://www.youtube.com/@jtrgarage" aria-label="YouTube" rel="noopener" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="m10 9 5 3-5 3z" fill="currentColor"/></svg></a>
+        <div style="padding:16px 16px 18px;">
+          <div style="font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.1em; color:#8a8a92; text-transform:uppercase;">Hoodie · 380gsm</div>
+          <h3 style="margin:7px 0 12px; font-family:'Archivo',sans-serif; font-weight:700; font-size:16.5px;">Need Money For GT-R Hoodie</h3>
+          <div style="display:flex; align-items:center; justify-content:space-between;">
+            <span style="font-family:'Archivo Black'; font-size:17px;">$110</span>
+            <span style="font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.08em; color:var(--accent);">VIEW →</span>
           </div>
         </div>
-        <div class="footer__col">
-          <h4>Shop</h4>
-          <a href="apparel.html">Apparel</a>
-          <a href="vehicles.html">Vehicles</a>
-          <a href="apparel.html">New Drops</a>
-          <a href="vehicles.html">Sell Your Car</a>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============ CHASSIS ============ -->
+  <section class="jtr-px" style="max-width:1320px; margin:0 auto; padding:60px 40px;">
+    <div style="display:flex; align-items:center; gap:18px; margin-bottom:26px;">
+      <span style="font-family:'Space Mono',monospace; font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:#8a8a92;">Shop by Chassis</span>
+      <span style="flex:1; height:1px; background:rgba(255,255,255,.1);"></span>
+      <span style="font-family:'Archivo Black'; font-size:18px; text-transform:uppercase;">Know your code</span>
+    </div>
+    <div style="display:flex; flex-wrap:wrap; gap:12px;">
+      <a href="apparel.html" class="jtr-chip" style="padding:14px 22px; border:1px solid rgba(255,255,255,.16); font-family:'Archivo Black'; font-size:15px; letter-spacing:.02em; color:#f4f3f1;">R32</a>
+      <a href="apparel.html" class="jtr-chip" style="padding:14px 22px; border:1px solid rgba(255,255,255,.16); font-family:'Archivo Black'; font-size:15px; letter-spacing:.02em; color:#f4f3f1;">R33</a>
+      <a href="apparel.html" class="jtr-chip" style="padding:14px 22px; border:1px solid rgba(255,255,255,.16); font-family:'Archivo Black'; font-size:15px; letter-spacing:.02em; color:#f4f3f1;">R34</a>
+      <a href="apparel.html" class="jtr-chip" style="padding:14px 22px; border:1px solid rgba(255,255,255,.16); font-family:'Archivo Black'; font-size:15px; letter-spacing:.02em; color:#f4f3f1;">S13 / S14 / S15</a>
+      <a href="apparel.html" class="jtr-chip" style="padding:14px 22px; border:1px solid rgba(255,255,255,.16); font-family:'Archivo Black'; font-size:15px; letter-spacing:.02em; color:#f4f3f1;">AE86</a>
+      <a href="vehicles.html" class="jtr-chip" style="padding:14px 22px; border:1px solid rgba(255,255,255,.16); font-family:'Archivo Black'; font-size:15px; letter-spacing:.02em; color:#f4f3f1;">HSV / AUDM</a>
+      <a href="vehicles.html" class="jtr-chip" style="padding:14px 22px; border:1px solid rgba(255,255,255,.16); font-family:'Archivo Black'; font-size:15px; letter-spacing:.02em; color:#f4f3f1;">TA22</a>
+    </div>
+  </section>
+
+  <!-- ============ FEATURED VEHICLE ============ -->
+  <section id="garage" class="jtr-px" style="max-width:1320px; margin:0 auto; padding:40px 40px 80px;">
+    <div class="jtr-feat jtr-vehgrid jtr-reveal" style="display:grid; grid-template-columns:1.1fr .9fr; gap:0; border:1px solid rgba(255,255,255,.1); overflow:hidden;">
+      <a href="vehicle-1973-ta22-celica.html" style="position:relative; min-height:440px; background:#0d0d10; overflow:hidden; display:block;">
+        <img class="jtr-grow" src="https://cdn.shopify.com/s/files/1/0996/3821/5027/files/IMG_1413.heic?v=1778759772&width=1300" alt="1973 TA22 Toyota Celica LT, side profile" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
+        <div style="position:absolute; inset:0; background:linear-gradient(180deg,transparent 55%,rgba(10,10,11,.45));"></div>
+        <span style="position:absolute; top:18px; left:18px; padding:6px 12px; background:#0a0a0b; border:1px solid var(--accent); color:var(--accent); font-family:'Space Mono',monospace; font-size:11px; font-weight:700; letter-spacing:.14em;">SOLD</span>
+      </a>
+      <div style="padding:48px 44px; background:#0d0d10; display:flex; flex-direction:column; justify-content:center;">
+        <div style="font-family:'Space Mono',monospace; font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:var(--accent); margin-bottom:16px;">In the Garage</div>
+        <h2 style="margin:0 0 18px; font-family:'Archivo Black'; font-size:clamp(30px,3.6vw,46px); line-height:.95; text-transform:uppercase; letter-spacing:-.02em;">1973 TA22<br>Toyota Celica LT</h2>
+        <p style="margin:0 0 26px; font-size:15.5px; line-height:1.6; color:#b6b6bd; max-width:460px;">A genuine slice of the golden era. Full service history back to its build date, runs and drives beautifully for 50-plus years old, and presents better than most. Honest listings, real history, no surprises.</p>
+        <div style="display:flex; flex-wrap:wrap; gap:10px; margin-bottom:30px;">
+          <span style="padding:7px 13px; border:1px solid rgba(255,255,255,.14); font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.06em; color:#cfcfd6;">Genuine history</span>
+          <span style="padding:7px 13px; border:1px solid rgba(255,255,255,.14); font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.06em; color:#cfcfd6;">Inspection welcome</span>
+          <span style="padding:7px 13px; border:1px solid rgba(255,255,255,.14); font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.06em; color:#cfcfd6;">Adelaide, SA</span>
         </div>
-        <div class="footer__col">
-          <h4>Company</h4>
-          <a href="about.html">About Us</a>
-          <a href="contact.html">Contact</a>
-          <a href="contact.html">Track Order</a>
-          <a href="contact.html">FAQs</a>
-        </div>
-        <div class="footer__col">
-          <h4>Support</h4>
-          <a href="contact.html">Shipping</a>
-          <a href="contact.html">Returns &amp; Refunds</a>
-          <a href="contact.html">Size Guide</a>
-          <a href="contact.html">Privacy Policy</a>
+        <div style="display:flex; flex-wrap:wrap; gap:14px;">
+          <a href="vehicle-1973-ta22-celica.html" class="jtr-btn-fill" style="display:inline-flex; padding:14px 22px; background:var(--accent); color:#0a0a0b; font-family:'Space Mono',monospace; font-weight:700; font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;">View this car</a>
+          <a href="vehicles.html" class="jtr-btn-ghost" style="display:inline-flex; padding:14px 22px; border:1px solid rgba(255,255,255,.22); color:#f4f3f1; font-family:'Space Mono',monospace; font-weight:700; font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;">All vehicles</a>
         </div>
       </div>
-      <div class="footer__bar">
-        <p>© <span data-year>2026</span> JTR Garage · Adelaide, South Australia</p>
-        <div class="pay" aria-label="Accepted payments">
-          <span>Visa</span><span>MC</span><span>Amex</span><span>PayPal</span><span>Afterpay</span><span>Apple Pay</span>
+    </div>
+  </section>
+
+  <!-- ============ WHY JTR ============ -->
+  <section id="why" style="background:#0c0c0e; border-top:1px solid rgba(255,255,255,.06); border-bottom:1px solid rgba(255,255,255,.06);">
+    <div class="jtr-px" style="max-width:1320px; margin:0 auto; padding:80px 40px;">
+      <div style="font-family:'Space Mono',monospace; font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:var(--accent); margin-bottom:14px;">Why JTR</div>
+      <h2 style="margin:0 0 50px; font-family:'Archivo Black'; font-size:clamp(34px,5vw,64px); line-height:.92; text-transform:uppercase; letter-spacing:-.02em;">Enthusiast to Enthusiast</h2>
+      <div class="jtr-whygrid" style="display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.08);">
+        <div style="background:#0c0c0e; padding:30px 26px;">
+          <div style="font-family:'Archivo Black'; font-size:26px; color:var(--accent); margin-bottom:18px;">01</div>
+          <h3 style="margin:0 0 10px; font-family:'Archivo',sans-serif; font-weight:700; font-size:18px;">Cars We'd Keep Ourselves</h3>
+          <p style="margin:0; font-size:14px; line-height:1.55; color:#9a9aa2;">Hand-picked JDM &amp; AUDM metal — Skylines, GT-Rs, HSVs and more. Every car inspected and honestly listed.</p>
         </div>
+        <div style="background:#0c0c0e; padding:30px 26px;">
+          <div style="font-family:'Archivo Black'; font-size:26px; color:var(--accent); margin-bottom:18px;">02</div>
+          <h3 style="margin:0 0 10px; font-family:'Archivo',sans-serif; font-weight:700; font-size:18px;">Honest From the First Photo</h3>
+          <p style="margin:0; font-size:14px; line-height:1.55; color:#9a9aa2;">Full history, real mod sheets and clear listings. What you see online is what you get in the flesh.</p>
+        </div>
+        <div style="background:#0c0c0e; padding:30px 26px;">
+          <div style="font-family:'Archivo Black'; font-size:26px; color:var(--accent); margin-bottom:18px;">03</div>
+          <h3 style="margin:0 0 10px; font-family:'Archivo',sans-serif; font-weight:700; font-size:18px;">Gear Built for the Scene</h3>
+          <p style="margin:0; font-size:14px; line-height:1.55; color:#9a9aa2;">Premium, heavyweight streetwear in limited drops. Designs that earn a nod at the meet — not an eye-roll.</p>
+        </div>
+        <div style="background:#0c0c0e; padding:30px 26px;">
+          <div style="font-family:'Archivo Black'; font-size:26px; color:var(--accent); margin-bottom:18px;">04</div>
+          <h3 style="margin:0 0 10px; font-family:'Archivo',sans-serif; font-weight:700; font-size:18px;">Part of the Adelaide Scene</h3>
+          <p style="margin:0; font-size:14px; line-height:1.55; color:#9a9aa2;">Local, enthusiast-run, and here for the long haul — at the track, at the meets, and in your DMs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ STORY QUOTE ============ -->
+  <section style="position:relative; overflow:hidden;">
+    <div aria-hidden="true" style="position:absolute; right:-3vw; top:-10%; font-family:'Noto Sans JP'; font-weight:700; font-size:22vw; color:rgba(255,255,255,.02); user-select:none; white-space:nowrap;">伝説</div>
+    <div class="jtr-px" style="position:relative; z-index:2; max-width:1000px; margin:0 auto; padding:100px 40px; text-align:center;">
+      <div style="font-family:'Space Mono',monospace; font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:var(--accent); margin-bottom:24px;">Our Story</div>
+      <h2 style="margin:0 0 30px; font-family:'Archivo Black'; font-size:clamp(28px,4vw,52px); line-height:1; text-transform:uppercase; letter-spacing:-.02em;">Driven by Passion.<br>Defined by the Golden Era.</h2>
+      <p style="margin:0 auto 34px; max-width:680px; font-size:clamp(19px,2.4vw,28px); line-height:1.5; font-weight:500; color:#e6e6ea;">“We're not a faceless dealer flogging stock — every car is one we'd put our own name to.”</p>
+      <a href="about.html" class="jtr-link" style="display:inline-flex; align-items:center; gap:9px; font-family:'Space Mono',monospace; font-size:13px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--accent);">Read our story →</a>
+    </div>
+  </section>
+
+  <!-- ============ NEWSLETTER ============ -->
+  <section id="join" style="background:var(--accent); color:#0a0a0b; overflow:hidden; position:relative;">
+    <div aria-hidden="true" style="position:absolute; inset:0; background:repeating-linear-gradient(90deg,transparent 0 60px,rgba(0,0,0,.04) 60px 61px);"></div>
+    <div class="jtr-nlgrid jtr-px" style="position:relative; z-index:2; max-width:1320px; margin:0 auto; padding:70px 40px; display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:center;">
+      <div>
+        <div style="font-family:'Space Mono',monospace; font-size:12px; letter-spacing:.2em; text-transform:uppercase; font-weight:700; margin-bottom:14px;">Join the Crew</div>
+        <h2 style="margin:0; font-family:'Archivo Black'; font-size:clamp(34px,5vw,64px); line-height:.9; text-transform:uppercase; letter-spacing:-.02em;">Get the Drop<br>Before Anyone Else</h2>
+      </div>
+      <div>
+        <p style="margin:0 0 22px; font-size:16px; line-height:1.55; max-width:440px; font-weight:500;">New arrivals, fresh stock and limited streetwear drops — straight to your inbox. No spam, just cars and culture worth your time.</p>
+        <form data-demo data-success="You're on the list — welcome to the crew." style="display:flex; gap:0; border:2px solid #0a0a0b; max-width:480px;">
+          <label for="nl-email" style="position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0);">Email address</label>
+          <input id="nl-email" type="email" name="email" required autocomplete="email" placeholder="your@email.com" style="flex:1; min-width:0; padding:16px 18px; border:none; outline:none; background:transparent; color:#0a0a0b; font-family:'Space Mono',monospace; font-size:14px;">
+          <button type="submit" style="padding:16px 30px; border:none; background:#0a0a0b; color:var(--accent); font-family:'Archivo Black'; font-size:14px; letter-spacing:.06em; text-transform:uppercase; cursor:pointer;">Join</button>
+        </form>
+        <p style="margin:14px 0 0; font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.04em; opacity:.7;">By joining you agree to receive marketing emails. Unsubscribe anytime.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer style="background:#0a0a0b; padding:70px 40px 34px;">
+    <div class="jtr-footgrid jtr-px" style="max-width:1320px; margin:0 auto; display:grid; grid-template-columns:1.6fr 1fr 1fr 1fr; gap:40px;">
+      <div>
+        <a href="index.html" style="display:flex; align-items:center; gap:11px; margin-bottom:18px;">
+          <span style="width:34px; height:34px; border:2px solid var(--accent); display:grid; place-items:center; font-family:'Archivo Black'; font-size:15px; color:var(--accent); transform:skewX(-6deg);">J</span>
+          <span style="font-family:'Archivo Black'; font-size:18px; text-transform:uppercase;">JTR&nbsp;Garage</span>
+        </a>
+        <p style="margin:0 0 20px; max-width:340px; font-size:14px; line-height:1.6; color:#8a8a92;">Adelaide's home for genuine JDM &amp; AUDM cars and Japanese-inspired streetwear. Cars and culture, straight out of South Australia.</p>
+        <div style="display:flex; gap:10px;">
+          <a href="https://www.instagram.com/jtrgarage" class="jtr-chip" rel="noopener" target="_blank" style="padding:9px 13px; border:1px solid rgba(255,255,255,.16); font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.08em; color:#cfcfd6;">Instagram</a>
+          <a href="https://www.tiktok.com/@jtrgarage" class="jtr-chip" rel="noopener" target="_blank" style="padding:9px 13px; border:1px solid rgba(255,255,255,.16); font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.08em; color:#cfcfd6;">TikTok</a>
+          <a href="https://www.youtube.com/@jtrgarage" class="jtr-chip" rel="noopener" target="_blank" style="padding:9px 13px; border:1px solid rgba(255,255,255,.16); font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.08em; color:#cfcfd6;">YouTube</a>
+        </div>
+      </div>
+      <div>
+        <h4 style="margin:0 0 16px; font-family:'Space Mono',monospace; font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:#6b6b73;">Shop</h4>
+        <div style="display:flex; flex-direction:column; gap:11px; font-size:14px; color:#b6b6bd;">
+          <a href="apparel.html">Apparel</a><a href="vehicles.html">Vehicles</a><a href="apparel.html">New Drops</a><a href="vehicles.html">Sell Your Car</a>
+        </div>
+      </div>
+      <div>
+        <h4 style="margin:0 0 16px; font-family:'Space Mono',monospace; font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:#6b6b73;">Company</h4>
+        <div style="display:flex; flex-direction:column; gap:11px; font-size:14px; color:#b6b6bd;">
+          <a href="about.html">About Us</a><a href="contact.html">Contact</a><a href="contact.html">Track Order</a><a href="contact.html">FAQs</a>
+        </div>
+      </div>
+      <div>
+        <h4 style="margin:0 0 16px; font-family:'Space Mono',monospace; font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:#6b6b73;">Support</h4>
+        <div style="display:flex; flex-direction:column; gap:11px; font-size:14px; color:#b6b6bd;">
+          <a href="contact.html">Shipping</a><a href="contact.html">Returns &amp; Refunds</a><a href="contact.html">Size Guide</a><a href="contact.html">Privacy Policy</a>
+        </div>
+      </div>
+    </div>
+    <div class="jtr-footbar jtr-px" style="max-width:1320px; margin:48px auto 0; padding-top:24px; border-top:1px solid rgba(255,255,255,.08); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;">
+      <span style="font-family:'Space Mono',monospace; font-size:12px; letter-spacing:.06em; color:#6b6b73;">© <span data-year>2026</span> JTR Garage · Adelaide, South Australia</span>
+      <div style="display:flex; gap:8px; font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.06em; color:#6b6b73;">
+        <span>Visa</span><span>·</span><span>MC</span><span>·</span><span>Amex</span><span>·</span><span>PayPal</span><span>·</span><span>Afterpay</span><span>·</span><span>Apple Pay</span>
       </div>
     </div>
   </footer>
 
-  <!-- Cart drawer -->
-  <div class="overlay" id="overlay" aria-hidden="true"></div>
-  <aside class="drawer" id="cartDrawer" aria-label="Shopping bag" aria-hidden="true">
-    <div class="drawer__head">
-      <h3>Your Bag</h3>
-      <button class="drawer__close" data-cart-close aria-label="Close bag">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 6 6 18M6 6l12 12"/></svg>
-      </button>
-    </div>
-    <div class="drawer__body" id="cartBody"></div>
-    <div class="drawer__foot">
-      <div class="drawer__total"><span class="mono">Subtotal</span><span class="amt" id="cartTotal">$0.00</span></div>
-      <a class="btn btn--block btn--lg" href="contact.html">Checkout</a>
-      <p class="drawer__note">Secure checkout · Free AU shipping over $100</p>
-    </div>
-  </aside>
+</main>
+
+<!-- Cart drawer (shared) -->
+<div class="overlay" id="overlay" aria-hidden="true"></div>
+<aside class="drawer" id="cartDrawer" aria-label="Shopping bag" aria-hidden="true">
+  <div class="drawer__head">
+    <h3>Your Bag</h3>
+    <button class="drawer__close" data-cart-close aria-label="Close bag">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="drawer__body" id="cartBody"></div>
+  <div class="drawer__foot">
+    <div class="drawer__total"><span class="mono">Subtotal</span><span class="amt" id="cartTotal">$0.00</span></div>
+    <a class="btn btn--block btn--lg" href="contact.html">Checkout</a>
+    <p class="drawer__note">Secure checkout · Free AU shipping over $100</p>
+  </div>
+</aside>
+
+<script>
+  /* scroll reveal (ported from the design comp) */
+  (function () {
+    var els = [].slice.call(document.querySelectorAll('.jtr-reveal'));
+    els.forEach(function (e, i) { e.style.transitionDelay = (Math.min(i, 3) * 0.08) + 's'; });
+    function reveal(e) { e.classList.add('jtr-in'); }
+    function check() {
+      var vh = window.innerHeight || document.documentElement.clientHeight;
+      els.forEach(function (e) {
+        if (e.classList.contains('jtr-in')) return;
+        var r = e.getBoundingClientRect();
+        if (r.top < vh * 0.92 && r.bottom > 0) reveal(e);
+      });
+    }
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (ens) {
+        ens.forEach(function (en) { if (en.isIntersecting) { reveal(en.target); io.unobserve(en.target); } });
+      }, { threshold: 0.08, rootMargin: '0px 0px -6% 0px' });
+      els.forEach(function (e) { io.observe(e); });
+    }
+    check();
+    window.addEventListener('scroll', check, { passive: true });
+    window.addEventListener('resize', check, { passive: true });
+    setTimeout(function () { els.forEach(reveal); }, 1400);
+  })();
+</script>
 </body>
 </html>
